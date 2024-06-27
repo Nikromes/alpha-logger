@@ -1,0 +1,10 @@
+{
+  "name": "alpha-logger",
+  "version": "1.0.0",
+  "description": "",
+  "main": "logger.js",
+  "type": "module",
+  "dependencies": {
+    "winston": "^3.13.0"
+  }
+}
