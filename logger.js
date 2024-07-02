@@ -1,6 +1,12 @@
 import fs from 'fs';
 import winston from 'winston';
 
+const logsPath = './logs';
+
+if (!fs.existsSync(logsPath)) {
+    fs.mkdirSync(logsPath);
+}
+
 // Получение имени скрипта из аргументов командной строки
 const scriptName = process.argv[2] || 'Unknown Script';
 
@@ -12,14 +18,14 @@ const logger = winston.createLogger({
         winston.format.printf(info => `${info.timestamp} ${info.level}: ${info.message}`)
     ),
     transports: [
-        new winston.transports.File({ filename: './log.txt', options: { flags: 'a' } })
+        new winston.transports.File({ filename: `${logsPath}/${scriptName}.txt`, options: { flags: 'a' } })
     ]
 });
 
 // Записываем разделитель и дату/время в начало лог-файла
 const logHeader = `--------------------------------\n▶️${scriptName}\n🕗${new Date().toLocaleString()}\n`;
 
-fs.appendFileSync('./log.txt', logHeader, 'utf8');
+fs.appendFileSync(`${logsPath}/${scriptName}.txt`, logHeader, 'utf8');
 
 // Переопределение методов console
 const originalLog = console.log;
