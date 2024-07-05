@@ -1,5 +1,6 @@
 import fs from 'fs';
 import winston from 'winston';
+import stripAnsi from 'strip-ansi';
 
 const logsPath = './logs';
 
@@ -15,7 +16,11 @@ const logger = winston.createLogger({
     level: 'info',
     format: winston.format.combine(
         winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
-        winston.format.printf(info => `${info.timestamp} ${info.level}: ${info.message}`)
+        winston.format.printf(info => {
+            // Удаляем ANSI-коды из сообщения перед выводом
+            const messageWithoutAnsi = stripAnsi(info.message);
+            return `${info.timestamp} ${info.level}: ${messageWithoutAnsi}`;
+        })
     ),
     transports: [
         new winston.transports.File({ filename: `${logsPath}/${scriptName}.txt`, options: { flags: 'a' } })

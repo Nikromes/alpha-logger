@@ -1,10 +1,14 @@
 {
   "name": "super-alpha-logger",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "",
   "main": "logger.js",
   "type": "module",
+  "scripts": {
+    "test": "node --import ./logger.js logger.js logger"
+  },
   "dependencies": {
+    "strip-ansi": "^7.1.0",
     "winston": "^3.13.0"
   }
 }

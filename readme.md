@@ -15,3 +15,5 @@
     "scriptToRun": "node --import ./node_modules/alpha-logger/logger.js scriptToRun.js scriptName",
   },
 </code>
+
+Так же, в актуальной версии добавил корректный вывод логов в .txt при использовании библиотеки `colors`
